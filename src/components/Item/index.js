@@ -4,7 +4,7 @@ class Item extends React.Component {
     render() {
         return (
             <div className="Item">
-                <p>Item内容</p>
+                <p>{this.props.content}</p>
             </div>
         )
     }
