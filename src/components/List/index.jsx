@@ -2,6 +2,10 @@ import React from 'react'
 import Item from "../Item";
 
 class List extends React.Component {
+    deleteContent = (id) => {
+        this.props.delete(id)
+    }
+
     render() {
         let {contents} = this.props
         return (
@@ -9,7 +13,7 @@ class List extends React.Component {
                 <ul>
                     {
                         contents.map((item) =>
-                            <Item content={item.content} key={item.id}/>
+                            <Item itemObj={item} key={item.id} delete={this.deleteContent}/>
                         )
                     }
                 </ul>

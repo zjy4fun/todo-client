@@ -19,26 +19,50 @@ class Container extends React.Component {
                 id: 2,
                 content: "todo-3",
                 status: false
+            },
+            {
+                id: 3,
+                content: "todo-4",
+                status: false
             }
         ]
     }
 
     addContent = (content) => {
+        //获取最大id+1
+        let ids = this.state.contents.map((item) => item.id)
+        let id = ids.length > 0 ? Math.max(...ids) + 1 : 0
         this.setState((state) => ({
             contents: state.contents.concat({
-                id: this.state.contents.length,
-                content: content,
+                id,
+                content,
                 status: false,
             })
-        }), () =>{
+        }), () => {
             console.log(this.state.contents.length)
         })
     }
+
+    deleteContent = (id) => {
+        let contents = this.state.contents
+        for (let i = contents.length - 1; i >= 0; i--) {
+            if (contents[i].id + '' === id) {
+                contents.splice(i, 1)
+                break
+            }
+        }
+        this.setState(() => ({
+            contents
+        }), () => {
+            console.log(this.state.contents.length)
+        })
+    }
+
     render() {
         return (
             <div className="Container">
                 <Input add={this.addContent}/>
-                <List contents = {this.state.contents}/>
+                <List contents={this.state.contents} delete={this.deleteContent}/>
             </div>
         )
     }
