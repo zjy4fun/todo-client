@@ -1,5 +1,7 @@
-import React from 'react'
-import Item from "../Item";
+import {Button, Table} from 'antd';
+import React from 'react';
+
+const {Column} = Table;
 
 class List extends React.Component {
     deleteContent = (id) => {
@@ -7,16 +9,21 @@ class List extends React.Component {
     }
 
     render() {
-        let {contents} = this.props
+        const {contents} = this.props
+        const newContents = contents ? [...contents] : []
         return (
             <div className="List">
-                <ul>
-                    {
-                        contents.map((item) =>
-                            <Item itemObj={item} key={item.id} delete={this.deleteContent}/>
-                        )
-                    }
-                </ul>
+                <Table rowKey="id" dataSource={newContents}>
+                    <Column title="内容" dataIndex="content"/>
+                    <Column title="操作" dataIndex="id"
+                            render={(_, content) => {
+                                return (
+                                    <Button type="primary" danger
+                                            onClick={() => this.deleteContent(content.id)}>删除</Button>
+                                )
+                            }}
+                    />
+                </Table>
             </div>
         )
     }

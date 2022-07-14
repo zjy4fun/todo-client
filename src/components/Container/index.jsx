@@ -6,8 +6,18 @@ class Container extends React.Component {
     state = {
         contents: [
             {
-                id: 0,
+                id: '0',
                 content: "todo-1",
+                status: false,
+            },
+            {
+                id: '1',
+                content: "todo-2",
+                status: false,
+            },
+            {
+                id: '2',
+                content: "todo-3",
                 status: false,
             },
         ]
@@ -30,6 +40,7 @@ class Container extends React.Component {
 
     deleteContent = (id) => {
         let contents = this.state.contents
+        // console.log("Container -- deleteContent -- id = ", id)
         for (let i = contents.length - 1; i >= 0; i--) {
             if (contents[i].id + '' === id) {
                 contents.splice(i, 1)
@@ -37,7 +48,7 @@ class Container extends React.Component {
             }
         }
         this.setState(() => ({
-            contents
+            contents: contents
         }), () => {
             console.log(this.state.contents.length)
         })
