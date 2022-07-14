@@ -7,10 +7,9 @@ class Item extends React.Component {
     render() {
         let {itemObj} = this.props
         return (
-            <div className="Item">
-                <p>{itemObj.content}</p>
-                <button id={itemObj.id} onClick={this.deleteContent}>删除</button>
-            </div>
+            <li className="Item">
+                <p>{itemObj.content}  <button id={itemObj.id} onClick={this.deleteContent}>删除</button></p>
+            </li>
         )
     }
 }

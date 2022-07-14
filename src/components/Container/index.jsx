@@ -10,21 +10,6 @@ class Container extends React.Component {
                 content: "todo-1",
                 status: false,
             },
-            {
-                id: 1,
-                content: "todo-2",
-                status: false,
-            },
-            {
-                id: 2,
-                content: "todo-3",
-                status: false
-            },
-            {
-                id: 3,
-                content: "todo-4",
-                status: false
-            }
         ]
     }
 
