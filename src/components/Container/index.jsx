@@ -1,6 +1,6 @@
 import React from 'react'
 import List from "../List";
-import Input from "../Input";
+import Add from "../Add";
 
 class Container extends React.Component {
     state = {
@@ -57,7 +57,7 @@ class Container extends React.Component {
     render() {
         return (
             <div className="Container">
-                <Input add={this.addContent}/>
+                <Add add={this.addContent}/>
                 <List contents={this.state.contents} delete={this.deleteContent}/>
             </div>
         )
