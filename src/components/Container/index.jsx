@@ -1,6 +1,7 @@
 import React from 'react'
 import List from "../List";
 import Add from "../Add";
+import {Row, Col} from 'antd'
 
 class Container extends React.Component {
     state = {
@@ -56,10 +57,12 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div className="Container">
-                <Add add={this.addContent}/>
-                <List contents={this.state.contents} delete={this.deleteContent}/>
-            </div>
+            <Row className="Container">
+                <Col span={12} offset={6}>
+                    <Add add={this.addContent}/>
+                    <List contents={this.state.contents} delete={this.deleteContent}/>
+                </Col>
+            </Row>
         )
     }
 }
