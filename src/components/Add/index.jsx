@@ -3,11 +3,8 @@ import {Button, Input} from 'antd';
 
 
 class Add extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            content: ""
-        }
+    state = {
+        content: ""
     }
     handleSubmit = () => {
         this.props.add(this.state.content)
