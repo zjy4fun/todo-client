@@ -2,26 +2,11 @@ import React from 'react'
 import List from "../List";
 import Add from "../Add";
 import {Row, Col} from 'antd'
+import axios from 'axios'
 
 class Container extends React.Component {
     state = {
-        contents: [
-            {
-                id: '0',
-                content: "todo-1",
-                status: false,
-            },
-            {
-                id: '1',
-                content: "todo-2",
-                status: false,
-            },
-            {
-                id: '2',
-                content: "todo-3",
-                status: false,
-            },
-        ]
+        contents: []
     }
 
     addContent = (content) => {
@@ -41,17 +26,33 @@ class Container extends React.Component {
 
     deleteContent = (id) => {
         let contents = this.state.contents
-        // console.log("Container -- deleteContent -- id = ", id)
         for (let i = contents.length - 1; i >= 0; i--) {
             if (contents[i].id + '' === id) {
                 contents.splice(i, 1)
                 break
             }
         }
-        this.setState(() => ({
-            contents: contents
-        }), () => {
-            console.log(this.state.contents.length)
+
+        axios.delete('/api/v1/contents', {
+            data: {
+                id: id
+            }
+        }).then(res => {
+            console.log(res)
+            this.setState(() => ({
+                contents: contents
+            }), () => {
+                console.log(this.state.contents.length)
+            })
+        })
+    }
+
+    componentDidMount() {
+        axios.get("/api/v1/contents").then(res => {
+            this.setState({
+                contents: res.data.contents
+            })
+            console.log(res.data.contents)
         })
     }
 
