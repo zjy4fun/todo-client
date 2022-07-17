@@ -1,16 +1,12 @@
 import React from 'react'
 import List from "../List";
-import Input from "../Input";
+import Add from "../Add";
+import {Row, Col} from 'antd'
+import axios from 'axios'
 
 class Container extends React.Component {
     state = {
-        contents: [
-            {
-                id: 0,
-                content: "todo-1",
-                status: false,
-            },
-        ]
+        contents: []
     }
 
     addContent = (content) => {
@@ -36,19 +32,38 @@ class Container extends React.Component {
                 break
             }
         }
-        this.setState(() => ({
-            contents
-        }), () => {
-            console.log(this.state.contents.length)
+
+        axios.delete('/api/v1/contents', {
+            data: {
+                id: id
+            }
+        }).then(res => {
+            console.log(res)
+            this.setState(() => ({
+                contents: contents
+            }), () => {
+                console.log(this.state.contents.length)
+            })
+        })
+    }
+
+    componentDidMount() {
+        axios.get("/api/v1/contents").then(res => {
+            this.setState({
+                contents: res.data.contents
+            })
+            console.log(res.data.contents)
         })
     }
 
     render() {
         return (
-            <div className="Container">
-                <Input add={this.addContent}/>
-                <List contents={this.state.contents} delete={this.deleteContent}/>
-            </div>
+            <Row className="Container">
+                <Col span={12} offset={6}>
+                    <Add add={this.addContent}/>
+                    <List contents={this.state.contents} delete={this.deleteContent}/>
+                </Col>
+            </Row>
         )
     }
 }
